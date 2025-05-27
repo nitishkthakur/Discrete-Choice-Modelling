@@ -20,6 +20,25 @@ class MultinomialConditionalLogit:
             beta = beta.reshape(-1, self.n_choices)
             return beta
 
+    @staticmethod
+    def softmax(logits, temperature = 1.0):
+        """Compute the softmax with temprature"""
+
+        # First, Scale with temperature/
+        logits = logits / temperature
+        
+        max_logits = np.max(logits, keepdims = True)
+
+        # Subtract the max logit
+        logits -= max_logits
+
+        # Now compute the softmax
+        exp_logits = np.exp(logits)
+
+        # Normalize the logits to get probabilities
+        softmax_values = exp_logits/np.sum(exp_logits, keepdims = True)
+        return softmax_values
+
     def likelihood(self, beta, X, y):
         """
         Calculate the likelihood of the multinomial logit model.
