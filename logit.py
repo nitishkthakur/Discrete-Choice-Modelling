@@ -19,7 +19,7 @@ class MultinomialConditionalLogit:
         else:
             beta = beta.reshape(-1, self.n_choices)
 
-        return beta
+            return beta
     
     
     def likelihood(self, beta, X, y):
