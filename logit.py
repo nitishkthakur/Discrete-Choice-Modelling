@@ -1,9 +1,9 @@
 import numpy as np
-from scipy import optimize
+# from scipy import optimize
 
 
 class MultinomialConditionalLogit:
-    def __init__(self, n_choices, kind='multinomial'):
+    def __init__(self, n_choices, kind="multinomial"):
         self.n_choices = n_choices
         self.beta = None
         self.kind = kind
@@ -15,17 +15,15 @@ class MultinomialConditionalLogit:
         """
         if len(beta.shape) == 1:
             return beta.reshape(-1, 1)
-        
+
         else:
             beta = beta.reshape(-1, self.n_choices)
-
             return beta
-    
-    
+
     def likelihood(self, beta, X, y):
         """
         Calculate the likelihood of the multinomial logit model.
-        
+
         Parameters:
         beta : array-like
             Coefficients for the model.
@@ -33,7 +31,7 @@ class MultinomialConditionalLogit:
             Design matrix (features).
         y : array-like
             Response variable (choices).
-        
+
         Returns:
         float
             Negative log-likelihood value.
@@ -42,5 +40,4 @@ class MultinomialConditionalLogit:
 
         # Calculate the numerator and denominator for the softmax function
         exp_linear_combination = np.exp(linear_combination)
-        sum_exp = np.sum(exp_linear_combination, axis=1)
-
+        sum_exp = np.sum(exp_linear_combination, axis=1)  # noqa: F841
