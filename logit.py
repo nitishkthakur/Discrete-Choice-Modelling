@@ -36,7 +36,7 @@ class MultinomialConditionalLogit:
         exp_logits = np.exp(logits)
 
         # Normalize the logits to get probabilities
-        softmax_values = exp_logits/np.sum(exp_logits, keepdims = True)
+        softmax_values = exp_logits/np.sum(exp_logits, axis = -1, keepdims = True)
         return softmax_values
 
     def likelihood(self, beta, X, y):
@@ -57,6 +57,10 @@ class MultinomialConditionalLogit:
         """
         linear_combination = np.dot(X, beta)
 
-        # Calculate the numerator and denominator for the softmax function
-        exp_linear_combination = np.exp(linear_combination)
-        sum_exp = np.sum(exp_linear_combination, axis=1)  # noqa: F841
+        # Compute logit
+        softmax_values = MultinomialConditionalLogit.softmax(linear_combination) #noqa: F841
+
+        # Compute the log likelihood
+
+
+        
